@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diodos-s <diodos-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:30:05 by rumachad          #+#    #+#             */
-/*   Updated: 2023/11/10 12:35:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:35:39 by diodos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	unset(t_env *env, char *cmd);
 
-void	export(t_env *env, char **cmd_split)
+void	export(t_env *env, char *cmd_split)
 {
 	char	*var;
 	int		k;
@@ -22,17 +22,17 @@ void	export(t_env *env, char **cmd_split)
 
 	/* check_export(); */
 	i = 0;
-	while (*cmd_split[i] != '=' && *cmd_split[i])
+	while (cmd_split[i] != '=' && cmd_split[i])
 		i++;
 	var = (char *)malloc(sizeof(char) * (i + 1));
 	k = -1;
 	while (++k < i)
-		var[k] = *cmd_split[k];
+		var[k] = cmd_split[k];
 	var[k] = '\0';
 	//SEG_FAULT Quando o argmento: a =0
 	if (get_env(env, var))
 		unset(env, var);
 	env = env_last(env);
-	env->next = create_node(var, *cmd_split);
+	env->next = create_node(var, cmd_split);
 	free(var);
 }
