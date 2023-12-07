@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 12:44:59 by diodos-s          #+#    #+#             */
-/*   Updated: 2023/11/29 14:38:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:47:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 typedef enum s_type
 {
 	words,
-	pipes
+	pipes,
+	words_ds
 }			t_type;
 
 typedef struct s_cmd
@@ -67,15 +68,19 @@ void	clean_program(t_minishell *shell);
 void	free_env(t_env *env);
 
 //Handle quotes
-int	cases_quotes(t_minishell *shell);
+int		cases_quotes(t_minishell *shell);
 char	*remove_quotes(t_cmd *tokens);
 int		count_quotes(char *rl_str);
 int		handle_quotes(char *str);
+char	what_quote(char *str);
 
 //Parser
 t_cmd	*make_tokens(t_minishell *shell, t_cmd *tokens);
 void	free_tokens(t_cmd *tokens);
 void	lst_to_array(t_minishell *shell, t_cmd *tokens);
+
+//Expansion
+void	expansion(t_minishell *shell, t_cmd *args);
 
 //Utils
 int		is_space(char c);
